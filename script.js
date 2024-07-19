@@ -4,6 +4,7 @@ const todoList = document.querySelector('.list-group');
 const firstCardBody = document.querySelectorAll('.card-body')[0];
 const secondCardBody = document.querySelectorAll('.card-body')[1];
 const clearButton = document.querySelectorAll('#clearButton');
+let todos = [];
 
 runEvents();
 
@@ -17,6 +18,7 @@ function addTodo(e) {
         alert("Lutfen giriniz");
     } else {
         addTodoToUI(inputText);
+        addTodoToStorage(inputText);
     }
     e.preventDefault();
 }
@@ -38,4 +40,18 @@ function addTodoToUI(newTodo) {
     todoList.appendChild(li);
 
     addInput.value = "";
+}
+
+function addTodoToStorage(newTodo) {
+    checkTodosFromStorage();
+    todos.push(newTodo);
+    localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function checkTodosFromStorage() {
+    if (localStorage.getItem("todos") === null) {
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem("todos"));
+    }
 }
