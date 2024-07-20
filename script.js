@@ -15,10 +15,11 @@ function runEvents() {
 function addTodo(e) {
     const inputText = addInput.value.trim();
     if (inputText == null || inputText == "") {
-        alert("Lutfen giriniz");
+        showAlert("warning", "Lutfen aktivite giriniz");
     } else {
         addTodoToUI(inputText);
         addTodoToStorage(inputText);
+        showAlert("success", "Basariyla eklendi!");
     }
     e.preventDefault();
 }
@@ -54,4 +55,16 @@ function checkTodosFromStorage() {
     } else {
         todos = JSON.parse(localStorage.getItem("todos"));
     }
+}
+
+function showAlert(type, message) {
+    // <div class="alert alert-warning" role="alert">
+    //     This is a warning alert-check it out!
+    // </div>
+    const div = document.createElement("div");
+    div.className = "alert alert-" + type;
+    div.style.margin = "15px 0 -15px 0";
+    div.textContent = message;
+    firstCardBody.appendChild(div);
+    setTimeout(() => div.remove(), 2500)
 }
