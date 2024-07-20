@@ -10,6 +10,14 @@ runEvents();
 
 function runEvents() {
     form.addEventListener("submit", addTodo);
+    document.addEventListener("DOMContentLoaded", pageLoaded);
+}
+
+function pageLoaded() {
+    checkTodosFromStorage();
+    todos.forEach((todo) => {
+        addTodoToUI(todo)
+    })
 }
 
 function addTodo(e) {
