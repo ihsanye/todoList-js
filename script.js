@@ -11,6 +11,7 @@ runEvents();
 function runEvents() {
     form.addEventListener("submit", addTodo);
     document.addEventListener("DOMContentLoaded", pageLoaded);
+    secondCardBody.addEventListener("click", removeTodoFromUI);
 }
 
 function pageLoaded() {
@@ -18,6 +19,13 @@ function pageLoaded() {
     todos.forEach((todo) => {
         addTodoToUI(todo)
     })
+}
+
+function removeTodoFromUI(e) {
+    if (e.target.className === "fa fa-remove") {
+        e.target.parentElement.parentElement.remove();
+        showAlert("success", "Basariyla silindi!")
+    }
 }
 
 function addTodo(e) {
