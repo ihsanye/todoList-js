@@ -23,9 +23,21 @@ function pageLoaded() {
 
 function removeTodoFromUI(e) {
     if (e.target.className === "fa fa-remove") {
-        e.target.parentElement.parentElement.remove();
+        const todo = e.target.parentElement.parentElement;
+        todo.remove();
+        removeTodoFromStorage(todo.textContent);
         showAlert("success", "Basariyla silindi!")
     }
+}
+
+function removeTodoFromStorage(removeTodo) {
+    checkTodosFromStorage();
+    todos.forEach((todo, index) => {
+        if (removeTodo === todo) {
+            todos.splice(index, 1);
+        }
+    })
+    localStorage.setItem("todos", JSON.stringify(todos));
 }
 
 function addTodo(e) {
