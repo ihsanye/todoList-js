@@ -3,7 +3,8 @@ const addInput = document.querySelector('#todoName');
 const todoList = document.querySelector('.list-group');
 const firstCardBody = document.querySelectorAll('.card-body')[0];
 const secondCardBody = document.querySelectorAll('.card-body')[1];
-const clearButton = document.querySelectorAll('#clearButton')[0];
+const clearButton = document.querySelector('#clearButton');
+const filterInput = document.querySelector("#todoSearch");
 let todos = [];
 
 runEvents();
@@ -13,6 +14,7 @@ function runEvents() {
     document.addEventListener("DOMContentLoaded", pageLoaded);
     secondCardBody.addEventListener("click", removeTodoFromUI);
     clearButton.addEventListener("click", allTodosEverywhere);
+    filterInput.addEventListener("keyup", filterSearch);
 }
 
 function pageLoaded() {
@@ -20,6 +22,24 @@ function pageLoaded() {
     todos.forEach((todo) => {
         addTodoToUI(todo)
     })
+}
+
+function filterSearch(e) {
+    const filterValue = e.target.value.toLowerCase().trim();
+    const todoList = document.querySelectorAll(".list-group-item");
+
+    if (todoList.length > 0) {
+        todoList.forEach(todo => {
+            if (todo.textContent.toLowerCase().trim().includes(filterValue)) {
+                todo.setAttribute("style", "display:block justify-content:space-between !important");
+            } else {
+                todo.setAttribute("style", "display:none !important");
+            }
+        })
+    } else {
+        showAlert("warning", "Listede aktivite yok!")
+
+    }
 }
 
 function removeTodoFromUI(e) {
