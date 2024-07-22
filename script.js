@@ -36,9 +36,6 @@ function filterSearch(e) {
                 todo.setAttribute("style", "display:none !important");
             }
         })
-    } else {
-        showAlert("warning", "Listede aktivite yok!")
-
     }
 }
 
